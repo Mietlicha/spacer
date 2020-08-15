@@ -1,5 +1,6 @@
 # spacer
-
+This app uses NASA image API to fetch images and display them after passing search query.
+Made followed Hello Romman Vue course on youtube
 ## Project setup
 ```
 npm install

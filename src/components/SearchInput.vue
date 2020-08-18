@@ -23,10 +23,26 @@ export default {
   }
 
   input {
+    margin-top: 50px;
+    display: flex;
+    width: 250px;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
     height: 30px;
     border: 0;
-    border-bottom: 1px solid black;
     background: none;
+    border-bottom: 1px solid white;
+    transition: box-shadow 0.3s ease-out;
+    @media (min-width: 1024px) {
+      font-weight: 400;
+    }
+  }
+
+  input:focus {
+    outline: none;
+    box-shadow: 0 10px 20px -8px rgba(255, 255, 255, 0.5);
   }
 }
 </style>

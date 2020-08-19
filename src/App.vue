@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    < :class="[{flexStart: step === 1},'wrapper']">
+    <div :class="[{flexStart: step === 1},'wrapper']">
       <transition name="slide">
         <img src="./assets/logo.svg" class="logo" v-if="step===1" />
       </transition>
@@ -17,7 +17,7 @@
           @click.native="handleModalOpen(item)"
         />
       </div>
-      <div v-if='step === 1 && loading' class="loader"/>
+      <div v-if="step === 1 && loading" class="loader" />
       <Modal v-if="modalOpen" :item="modalItem" @closeModal="modalOpen = false" />
     </div>
   </div>
@@ -150,7 +150,7 @@ body {
   }
 }
 .loader:after {
-  content: " ";
+  content: ' ';
   display: block;
   width: 46px;
   height: 46px;

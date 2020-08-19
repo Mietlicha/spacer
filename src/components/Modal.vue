@@ -89,6 +89,8 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
+
   @media (min-width: 1024px) {
     flex-direction: row;
     .photo {

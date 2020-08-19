@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div :class="[{flexStart: step === 1},'wrapper']">
+    < :class="[{flexStart: step === 1},'wrapper']">
       <transition name="slide">
         <img src="./assets/logo.svg" class="logo" v-if="step===1" />
       </transition>
@@ -10,8 +10,15 @@
       <Claim v-if="step===0" />
       <SearchInput v-model="searchValue" @input="handleInput" :dark="step===1" />
       <div class="results" v-if="results && !loading && step===1">
-        <Item v-for="item in results" :item="item" :key="item.data[0].nasa_id" />
+        <Item
+          v-for="item in results"
+          :item="item"
+          :key="item.data[0].nasa_id"
+          @click.native="handleModalOpen(item)"
+        />
       </div>
+      <div v-if='step === 1 && loading' class="loader"/>
+      <Modal v-if="modalOpen" :item="modalItem" @closeModal="modalOpen = false" />
     </div>
   </div>
 </template>
@@ -23,6 +30,7 @@ import Claim from '@/components/Claim.vue';
 import SearchInput from '@/components/SearchInput.vue';
 import HeroImage from '@/components/HeroImage.vue';
 import Item from '@/components/Item.vue';
+import Modal from '@/components/Modal.vue';
 
 const API = 'https://images-api.nasa.gov/search';
 
@@ -33,6 +41,7 @@ export default {
     SearchInput,
     HeroImage,
     Item,
+    Modal,
   },
   data() {
     return {
@@ -40,9 +49,15 @@ export default {
       step: 0,
       searchValue: '',
       results: [],
+      modalOpen: false,
+      modalItem: null,
     };
   },
   methods: {
+    handleModalOpen(item) {
+      this.modalOpen = true;
+      this.modalItem = item;
+    },
     handleInput: debounce(function () {
       this.loading = true;
 
@@ -121,6 +136,40 @@ body {
   @media (min-width: 768px) {
     width: 90%;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.loader {
+  margin-top: 100px;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  @media (min-width: 768px) {
+    width: 90px;
+    height: 90px;
+  }
+}
+.loader:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #1e3d4a;
+  border-color: #1e3d4a transparent #1e3d4a transparent;
+  animation: loading 1.2s linear infinite;
+  @media (min-width: 768px) {
+    width: 90px;
+    height: 90px;
+  }
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 </style>

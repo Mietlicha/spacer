@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="search">Search</label>
-    <input id="search" name="search" :value="value" @input="handleChange" />
+    <input id="search" name="search" :value="value" @input="handleChange" :class="{dark}" />
   </div>
 </template>
 
@@ -12,6 +12,10 @@ export default {
     value: {
       type: String,
       required: true,
+    },
+    dark: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -48,5 +52,14 @@ input {
 input:focus {
   outline: none;
   box-shadow: 0 10px 20px -8px rgba(255, 255, 255, 0.5);
+}
+
+.dark {
+  color: #1e3d4a;
+  border-bottom-color: #1e3d4a;
+
+  &:focus {
+    box-shadow: 0 10px 20px -8px rgba(#1e3d4a, 0.2);
+  }
 }
 </style>
